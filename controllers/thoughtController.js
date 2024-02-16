@@ -1,4 +1,4 @@
-const { ObjectId } = require('mongoose').Types;
+// const { ObjectId } = require('mongoose').Types;
 const { Thought, User, Reaction } = require('../models');
 
 module.exports = {
@@ -28,7 +28,6 @@ module.exports = {
   },
 
   // create / POST a new thought and push the created thought's _id to the associated user's thoughts array field
-
   async createThought(req, res) {
     try {
       const thought = await Thought.create(req.body);

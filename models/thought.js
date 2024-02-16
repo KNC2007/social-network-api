@@ -14,7 +14,7 @@ const thoughtSchema = new Schema(
       type: Date,
       default: Date.now,
       // format timestamp
-      get: (createdAtVal) => new Date(createdAtVal).toDateString(),
+      get: timestamp => new Date(timestamp).toLocaleDateString(),
     },
     username: {
       type: String,
@@ -37,6 +37,6 @@ thoughtSchema.virtual('reactionCount').get(function() {
 });
 
 
-const Thought = model('Thought', thoughtSchemaSchema);
+const Thought = model('thought', thoughtSchema);
 
 module.exports = Thought;

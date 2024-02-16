@@ -1,13 +1,15 @@
-const { User} = require('../models');
+const { User, Thought} = require('../models');
 
 module.exports = {
 
   // get all users
   async getUsers(req, res) {
     try {
-      const users = await User.find().populate('users');
-      res.json(users);
-    } catch (err) {
+      const users = await User.find();
+      console.log(users);
+      const userData = JSON.parse(JSON.stringify(users));
+      res.json(userData);
+    } catch (err) { console.log(err);
       res.status(500).json(err);
     }
   },
@@ -15,12 +17,13 @@ module.exports = {
   // get a single user
   async getSingleUser(req, res) {
     try {
-      const user = await User.findOne({ _id: req.params.userId }).populate('users');
+      console.log('single user')
+      const user = await User.findOne({ _id: req.params.userId });
       if (!user) {
         return res.status(404).json({ message: 'No user with that ID' });
       }
       res.json(user);
-    } catch (err) {
+    } catch (err) { console.log(err);
       res.status(500).json(err);
     }
   },
@@ -30,7 +33,7 @@ module.exports = {
     try {
       const user = await User.create(req.body);
       res.json(user);
-    } catch (err) {
+    } catch (err) { console.log(err);
       res.status(500).json(err);
     }
   },
@@ -49,7 +52,7 @@ module.exports = {
       }
       res.json(user);
     }
-    catch (err) {
+    catch (err) { console.log(err);
       res.status(500).json(err);
     }
   },
@@ -64,7 +67,7 @@ module.exports = {
       res.json(user);
       await Thought.deleteMany({ _id: { $in: user.thoughts } });
       res.json({ message: 'User and thoughts deleted!' });
-    } catch (err) {
+    } catch (err) { console.log(err);
       res.status(500).json(err);
     }
   },
@@ -81,7 +84,7 @@ module.exports = {
         return res.status(404).json({ message: 'No user with that ID' });
       }
       res.json(user);
-    } catch (err) {
+    } catch (err) { console.log(err);
       res.status(500).json(err);
     } 
   },
@@ -98,7 +101,7 @@ module.exports = {
         return res.status(404).json({ message: 'No user with that ID' });
       }
       res.json(user);
-    } catch (err) {
+    } catch (err) { console.log(err);
       res.status(500).json(err);
     }
   }

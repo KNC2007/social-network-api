@@ -64,8 +64,7 @@ module.exports = {
       if (!user) {
         return res.status(404).json({ message: 'No user with that ID' });
       }
-      res.json(user);
-      await Thought.deleteMany({ _id: { $in: user.thoughts } });
+     await Thought.deleteMany({ _id: { $in: user.thoughts } });
       res.json({ message: 'User and thoughts deleted!' });
     } catch (err) { console.log(err);
       res.status(500).json(err);
@@ -80,6 +79,7 @@ module.exports = {
         { $addToSet: { friends: req.params.friendId } },
         { new: true }
       );
+      console.log(user);
       if (!user) {
         return res.status(404).json({ message: 'No user with that ID' });
       }

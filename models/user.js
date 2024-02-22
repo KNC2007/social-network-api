@@ -18,7 +18,8 @@ const userSchema = new Schema(
         validator: function(v) {
           return /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.test(v);
         }
-    },
+    }
+  },
     thoughts: [
       {
         type: Schema.Types.ObjectId,
@@ -31,7 +32,6 @@ const userSchema = new Schema(
         ref: 'user',
       },
     ],
-  },
 },
   {
     toJSON: {
@@ -43,10 +43,7 @@ const userSchema = new Schema(
 
 // virtual retrieves the length of the user's friends array field on query
 userSchema.virtual('friendCount').get(function() {
-  if (this.hasOwnProperty('friends')) {
     return this.friends.length
-  }
-return 0;
 });
 
 const User = model('user', userSchema);
